@@ -1,14 +1,23 @@
 import os
 from fastapi import FastAPI
 import json
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Get absolute path to wellness_tips.json
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load wellness tips
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "wellness_tips.json")
 
-# Load wellness tips
 with open(file_path, "r") as f:
     tips = json.load(f)
 
