@@ -1,6 +1,6 @@
 import os
-from fastapi import FastAPI
 import json
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -14,12 +14,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load wellness tips
+# Load wellness tips safely
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "wellness_tips.json")
 
-with open(file_path, "r") as f:
-    tips = json.load(f)
+try:
+    with open(file_path, "r") as f:
+        tips = json.load(f)
+except Exception as e:
+    tips = {}
+    print(f"Error loading wellness_tips.json: {e}")
 
 @app.get("/")
 def root():
@@ -31,4 +35,7 @@ def get_tips(mood: str):
     if mood in tips:
         return {"mood": mood, "tips": tips[mood]}
     else:
-        return {"mood": mood, "tips": ["No tips available for this mood. Try another mood like happy, sad, stressed, angry, anxious."]}
+        return {
+            "mood": mood,
+            "tips": ["No tips available for this mood. Try another mood like happy, sad, stressed, angry, anxious."]
+        }
