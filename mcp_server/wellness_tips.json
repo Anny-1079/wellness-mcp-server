@@ -18,5 +18,13 @@
   "anxious": [
     "Try progressive muscle relaxation for 10 minutes.",
     "Write down your worries and rational responses to them."
+  ],
+  "frustrated": [
+    "Take a short break and do some deep breathing to reset your mind.",
+    "Write down the main cause of your frustration and one small action to improve it."
+  ],
+  "confused": [
+    "List out what is confusing you to gain clarity.",
+    "Take a 5-minute break and return to it with a fresh mind."
   ]
 }
